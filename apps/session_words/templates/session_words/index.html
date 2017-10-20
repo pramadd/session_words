@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+      {% load static %}
+    <!-- The line above tells Django to be ready to listen for static files -->
+    <link rel="stylesheet" href="{% static 'session_words/index.css' %}" media="screen" title="no title"  charset="utf-8">
+    <!-- Put the static files in the static folder inside your app.  Django collects files within all static folders and puts them within a single folder -->    
+    </head>
+  <body>
+    <div class="head">
+        <form action="/process" method="post">
+          {% csrf_token %}
+          <div name="word">
+            Add a new word: <br>
+            <input type="text" name="word">
+          </div>
+        
+          <!-- <br> -->
+        
+          <div name="color">
+            choose color<br>
+            <input type="radio" name="color" value="red" checked="checked"> red<br>
+            <input type="radio" name="color" value="green"> green<br>
+            <input type="radio" name="color" value="blue"> blue<br>
+          </div>
+        
+          <!-- <br> -->
+        
+          <div name="font">
+             <div>
+                <input type="hidden" id="music" name="font" value="20" >
+                <input type="checkbox" id="music" name="font" value="40" checked="checked">
+                <label for="show in BIG fonts">show in BIG fonts</label>
+             </div>
+          </div>
+        
+          <!-- <br> -->
+        
+          <div name="sub">
+            <input type="submit" value="Add to session">
+          </div>
+        
+        </form>
+
+        <div class="clear">
+            <form action="clear">
+                {% csrf_token %}
+                <input type="submit" value="Clear Session">
+            </form>
+            <div class="result">
+                {% for data in request.session.inputs %}
+                <h3 style="color:{{data.color}}; font-size: {{data.font}}px">{{data.word}}</h3><p> - added on {{data.time}}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
