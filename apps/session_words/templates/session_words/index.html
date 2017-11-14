@@ -51,6 +51,7 @@
             </form>
             <div class="result">
                 {% for data in request.session.inputs %}
+                <!-- <h1>{{data}}</h1> -->
                 <h3 style="color:{{data.color}}; font-size: {{data.font}}px">{{data.word}}</h3><p> - added on {{data.time}}</p>
                 {% endfor %}
             </div>
